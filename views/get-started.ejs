@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpeg" href="favicon.jpeg">
+    <title>Get Started - Bridge Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-10px);
+        }
+
+        /* Light mode gradient */
+        html:not(.dark) .gradient-bg {
+            background: linear-gradient(135deg, #60A5FA, #818CF8, #F472B6);
+        }
+
+        /* Dark mode gradient */
+        html.dark .gradient-bg {
+            background: linear-gradient(135deg, #0F2027, #203A43, #2C5364);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+
+        function toggleDarkMode() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('darkMode', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('darkMode', 'dark');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            if (localStorage.getItem('darkMode') === 'dark') {
+                document.documentElement.classList.add('dark');
+            }
+        });
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+    <!-- Navigation -->
+    <nav class="bg-blue-600 dark:bg-gray-800 fixed w-full z-10 shadow-lg transition-colors duration-200">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="/" class="text-2xl font-bold text-white">Bridge</a>
+                </div>
+                <div class="flex items-center">
+                    <button onclick="toggleDarkMode()" class="p-2 rounded-lg bg-white/10 hover:bg-white/20">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-16 min-h-screen gradient-bg">
+        <div class="max-w-7xl mx-auto px-4 py-16">
+            <div class="text-center mb-16">
+                <h1 class="text-4xl font-bold text-white mb-4">Choose Your Path</h1>
+                <p class="text-xl text-gray-200">Are you a company looking for talent or a curator looking for opportunities?</p>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-center items-center gap-8 mt-8">
+                <!-- Company Card -->
+                <div class="w-full md:w-1/2 max-w-md">
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-8 card-hover">
+                        <div class="text-center">
+                            <div class="mx-auto w-24 h-24 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mb-4">
+                                <svg class="w-12 h-12 text-blue-600 dark:text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                                </svg>
+                            </div>
+                            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">I'm a Company</h2>
+                            <p class="text-gray-600 dark:text-gray-300 mb-6">Find the best talent for your organization and manage your workforce efficiently.</p>
+                            <a href="/company-signup" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                                Register as Company
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Curator Card -->
+                <div class="w-full md:w-1/2 max-w-md">
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-8 card-hover">
+                        <div class="text-center">
+                            <div class="mx-auto w-24 h-24 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mb-4">
+                                <svg class="w-12 h-12 text-purple-600 dark:text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                </svg>
+                            </div>
+                            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">I'm a Curator</h2>
+                            <p class="text-gray-600 dark:text-gray-300 mb-6">Discover opportunities and connect with leading companies in your field.</p>
+                            <a href="/curator-signup" class="inline-block bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                                Register as Curator
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <p class="text-white">Already have an account? <a href="/login" class="underline hover:text-gray-200">Log in here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-blue-600 dark:bg-gray-800 transition-colors duration-200">
+        <div class="max-w-7xl mx-auto py-8 px-4">
+            <div class="text-center">
+                <p class="text-base text-white">&copy; 2024 Bridge Solutions. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

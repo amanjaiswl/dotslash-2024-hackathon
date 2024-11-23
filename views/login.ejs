@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpeg" href="favicon.jpeg">
+    <title>Login - Bridge Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Light mode gradient */
+        html:not(.dark) .gradient-bg {
+            background: linear-gradient(135deg, #60A5FA, #818CF8, #F472B6);
+        }
+
+        /* Dark mode gradient */
+        html.dark .gradient-bg {
+            background: linear-gradient(135deg, #0F2027, #203A43, #2C5364);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+
+        function toggleDarkMode() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('darkMode', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('darkMode', 'dark');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            if (localStorage.getItem('darkMode') === 'dark') {
+                document.documentElement.classList.add('dark');
+            }
+        });
+
+        function showForm(formId) {
+            document.getElementById('curator-form').classList.add('hidden');
+            document.getElementById('company-form').classList.add('hidden');
+            document.getElementById(formId).classList.remove('hidden');
+        }
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+    <!-- Navigation -->
+    <nav class="bg-blue-600 dark:bg-gray-800 fixed w-full z-10 shadow-lg transition-colors duration-200">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="/" class="text-2xl font-bold text-white">Bridge</a>
+                </div>
+                <div class="flex items-center">
+                    <button onclick="toggleDarkMode()" class="p-2 rounded-lg bg-white/10 hover:bg-white/20">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-16 min-h-screen gradient-bg">
+        <div class="max-w-md mx-auto px-4 py-16">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-8">
+                <div class="text-center mb-8">
+                    <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Login</h1>
+                    <p class="text-gray-600 dark:text-gray-300 mt-2">Select your account type</p>
+                </div>
+
+                <!-- Account Type Selection -->
+                <div class="flex space-x-4 mb-8">
+                    <button onclick="showForm('company-form')"
+                        class="flex-1 py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition duration-200">
+                        Company
+                    </button>
+                    <button onclick="showForm('curator-form')"
+                        class="flex-1 py-2 px-4 bg-purple-600 hover:bg-purple-700 text-white rounded-md transition duration-200">
+                            Curator
+                    </button>
+                </div>
+
+                <!-- Curator Login Form -->
+                <form id="curator-form" action="/login-curator" method="POST" class="hidden space-y-6">
+                    <div>
+                        <label for="curator-email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+                        <input type="email" id="curator-email" name="email" required
+                            class="mt-1 block w-full px-3 py-1.5 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
+                    </div>
+                    <div>
+                        <label for="curator-password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
+                        <input type="password" id="curator-password" name="password" required
+                            class="mt-1 block w-full px-3 py-1.5 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
+                    </div>
+                    <button type="submit"
+                        class="w-full py-2 px-4 bg-purple-600 hover:bg-purple-700 text-white rounded-md transition duration-200">
+                        Login as Curator
+                    </button>
+                    <div class="text-center">
+                        <a href="/curator-signup" class="text-sm text-purple-600 hover:text-purple-500">Create Curator Account</a>
+                    </div>
+                </form>
+
+                <!-- Company Login Form -->
+                <form id="company-form" action="/login-company" method="POST" class="hidden space-y-6">
+                    <div>
+                        <label for="company-email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+                        <input type="email" id="company-email" name="email" required
+                            class="mt-1 block w-full px-3 py-1.5 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="company-password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
+                        <input type="password" id="company-password" name="password" required
+                            class="mt-1 block w-full px-3 py-1.5 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <button type="submit"
+                        class="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition duration-200">
+                        Login as Company
+                    </button>
+                    <div class="text-center">
+                        <a href="/company-signup" class="text-sm text-blue-600 hover:text-blue-500">Create Company Account</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-blue-600 dark:bg-gray-800 transition-colors duration-200">
+        <div class="max-w-7xl mx-auto py-8 px-4">
+            <div class="text-center">
+                <p class="text-base text-white">&copy; 2024 Bridge Solutions. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Show curator form by default
+        showForm('curator-form');
+    </script>
+</body>
+</html>
