@@ -1,0 +1,25 @@
+[
+  {
+    "company": {
+      "name": "ImageAI",
+      "logo": "ai-vector.jpg"
+    },
+    "stats": {
+      "activeTasks": 0,
+      "completionPercentage": 2,
+      "shortlisted": 0,
+      "timeSaved": 1.5
+    },
+    "recentActivity": [
+      {
+        "userImage": "openai.png",
+        "message": "Welcome to Bridge Solutions!",
+        "time": "24 November 2024 at 10:02:18"
+      }
+    ],
+    "activeTasks": [],
+    "submissions": [],
+    "approvedSubmissions": [],
+    "rejectedSubmissions": []
+  }
+]

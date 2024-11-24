@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpeg" href="favicon.jpeg">
+    <title>Company Registration - Bridge Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Light mode gradient */
+        html:not(.dark) .gradient-bg {
+            background: linear-gradient(135deg, #60A5FA, #818CF8, #F472B6);
+        }
+
+        /* Dark mode gradient */
+        html.dark .gradient-bg {
+            background: linear-gradient(135deg, #0F2027, #203A43, #2C5364);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+
+        function toggleDarkMode() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('darkMode', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('darkMode', 'dark');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            if (localStorage.getItem('darkMode') === 'dark') {
+                document.documentElement.classList.add('dark');
+            }
+        });
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+    <!-- Navigation -->
+    <nav class="bg-blue-600 dark:bg-gray-800 fixed w-full z-10 shadow-lg transition-colors duration-200">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="/" class="text-2xl font-bold text-white">Bridge</a>
+                </div>
+                <div class="flex items-center">
+                    <button onclick="toggleDarkMode()" class="p-2 rounded-lg bg-white/10 hover:bg-white/20">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-16 min-h-screen gradient-bg">
+        <div class="max-w-4xl mx-auto px-4 py-16">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-8">
+                <div class="text-center mb-8">
+                    <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Company Registration</h1>
+                    <p class="text-gray-600 dark:text-gray-300 mt-2">Create your company account to start finding talent</p>
+                </div>
+
+                <form class="space-y-6" action="/register-company" method="POST">
+                    <!-- Company Information -->
+                    <div class="space-y-6">
+                        <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Company Information</h2>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Company Name -->
+                            <div>
+                                <label for="company_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Company Name</label>
+                                <input type="text" id="company_name" name="company_name" required
+                                    class="mt-1 block w-full px-3 py-1.5 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+
+                            <!-- Company Website -->
+                            <div>
+                                <label for="website" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Company Website</label>
+                                <input type="url" id="website" name="website"
+                                    class="mt-1 block w-full px-3 py-1.5 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+
+                            <!-- Industry -->
+                            <div>
+                                <label for="industry" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Industry</label>
+                                <select id="industry" name="industry" required
+                                    class="mt-1 block w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                    <option value="">Select Industry</option>
+                                    <option value="technology">Technology</option>
+                                    <option value="finance">Finance</option>
+                                    <option value="healthcare">Healthcare</option>
+                                    <option value="education">Education</option>
+                                    <option value="manufacturing">Manufacturing</option>
+                                    <option value="retail">Retail</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+
+                            <!-- Company Size -->
+                            <div>
+                                <label for="company_size" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Company Size</label>
+                                <select id="company_size" name="company_size" required
+                                    class="mt-1 block w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                    <option value="">Select Size</option>
+                                    <option value="1-10">1-10 employees</option>
+                                    <option value="11-50">11-50 employees</option>
+                                    <option value="51-200">51-200 employees</option>
+                                    <option value="201-500">201-500 employees</option>
+                                    <option value="501+">501+ employees</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Company Description -->
+                        <div>
+                            <label for="description" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Company Description</label>
+                            <textarea id="description" name="description" rows="4"
+                                class="mt-1 block w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="space-y-6">
+                        <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Contact Information</h2>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Contact Name -->
+                            <div>
+                                <label for="contact_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Contact Name</label>
+                                <input type="text" id="contact_name" name="contact_name" required
+                                    class="mt-1 block w-full px-3 py-1.5 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+
+                            <!-- Contact Email -->
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email Address</label>
+                                <input type="email" id="email" name="email" required
+                                    class="mt-1 block w-full px-3 py-1.5 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+
+                            <!-- Password -->
+                            <div>
+                                <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
+                                <input type="password" id="password" name="password" required
+                                    class="mt-1 block w-full px-3 py-1.5 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+
+                            <!-- Confirm Password -->
+                            <div>
+                                <label for="confirm_password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Confirm Password</label>
+                                <input type="password" id="confirm_password" name="confirm_password" required
+                                    class="mt-1 block w-full px-3 py-1.5 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Terms and Conditions -->
+                    <div class="flex items-center">
+                        <input type="checkbox" id="terms" name="terms" required
+                            class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                        <label for="terms" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+                            I agree to the <a href="#" class="text-blue-600 hover:text-blue-500">Terms and Conditions</a>
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div>
+                        <button type="submit"
+                            class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-300">
+                            Create Company Account
+                        </button>
+                    </div>
+                </form>
+
+                <div class="mt-6 text-center">
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        Already have an account?
+                        <a href="/login" class="font-medium text-blue-600 hover:text-blue-500">Sign in</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-blue-600 dark:bg-gray-800 transition-colors duration-200">
+        <div class="max-w-7xl mx-auto py-8 px-4">
+            <div class="text-center">
+                <p class="text-base text-white">&copy; 2024 Bridge Solutions. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

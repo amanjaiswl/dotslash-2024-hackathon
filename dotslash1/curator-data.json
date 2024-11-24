@@ -1,0 +1,18 @@
+[
+  {
+    "curator": {
+      "name": "Curator1 Test",
+      "profilePicture": "mountains.jpeg",
+      "rank": "Newbie Curator"
+    },
+    "stats": {
+      "totalWorkDone": 0,
+      "workDone": 0,
+      "workAssigned": 0,
+      "totalEarnings": 0,
+      "todayEarnings": 0
+    },
+    "assignedWork": [],
+    "completedWork": []
+  }
+]

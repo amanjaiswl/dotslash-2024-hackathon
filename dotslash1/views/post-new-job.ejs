@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpeg" href="favicon.jpeg">
+    <title>Post New Job - Bridge Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Light mode gradient */
+        html:not(.dark) .gradient-bg {
+            background: linear-gradient(135deg, #60A5FA, #818CF8, #F472B6);
+        }
+
+        /* Dark mode gradient */
+        html.dark .gradient-bg {
+            background: linear-gradient(135deg, #0F2027, #203A43, #2C5364);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+
+        function toggleDarkMode() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('darkMode', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('darkMode', 'dark');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            if (localStorage.getItem('darkMode') === 'dark') {
+                document.documentElement.classList.add('dark');
+            }
+
+            // Add input validation for payment amount
+            const paymentInput = document.getElementById('paymentAmount');
+            paymentInput.addEventListener('input', function() {
+                if (this.value < 0) {
+                    this.value = 0;
+                }
+            });
+
+            const categorySelect = document.getElementById('jobCategory');
+            const uploadSection = document.getElementById('dataUploadSection');
+
+            categorySelect.addEventListener('change', function() {
+                updateUploadSection(this.value);
+            });
+
+            // Initial setup
+            updateUploadSection(categorySelect.value);
+        });
+
+        function updateUploadSection(category) {
+            const uploadSection = document.getElementById('dataUploadSection');
+            const uploadInput = document.getElementById('dataUpload');
+            const uploadLabel = document.getElementById('uploadLabel');
+            const uploadHelp = document.getElementById('uploadHelp');
+
+            switch(category) {
+                case 'Image Labeling':
+                    uploadInput.accept = "image/*";
+                    uploadLabel.textContent = "Upload Images";
+                    uploadHelp.textContent = "Upload multiple images or a ZIP file containing images";
+                    break;
+                case 'Audio Labeling':
+                    uploadInput.accept = "audio/*";
+                    uploadLabel.textContent = "Upload Audio Files";
+                    uploadHelp.textContent = "Upload audio files (MP3, WAV, etc.) or a ZIP file";
+                    break;
+                case 'Video Labeling':
+                    uploadInput.accept = "video/*";
+                    uploadLabel.textContent = "Upload Videos";
+                    uploadHelp.textContent = "Upload video files or a ZIP file containing videos";
+                    break;
+                case 'Text Annotation':
+                    uploadInput.accept = ".txt,.doc,.docx,.pdf";
+                    uploadLabel.textContent = "Upload Text Documents";
+                    uploadHelp.textContent = "Upload text documents or a ZIP file containing documents";
+                    break;
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-blue-600 dark:bg-gray-800 fixed w-full z-10 shadow-lg transition-colors duration-200">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-8">
+                    <a href="/" class="text-2xl font-bold text-white">Bridge</a>
+                    <div class="hidden md:flex space-x-4">
+                        <a href="/company-dashboard" class="text-white hover:text-gray-200">Dashboard</a>
+                        <a href="#" class="text-white hover:text-gray-200">Job Listings</a>
+                        <a href="#" class="text-white hover:text-gray-200">Curators</a>
+                    </div>
+                </div>
+                <!-- Add Dark Mode Toggle Button -->
+                <button onclick="toggleDarkMode()" class="p-2 rounded-lg bg-white/10 hover:bg-white/20">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-16">
+        <!-- Header Section -->
+        <div class="gradient-bg">
+            <div class="max-w-7xl mx-auto px-4 py-8">
+                <h1 class="text-3xl font-bold text-white">Post New Job</h1>
+                <p class="text-gray-200 mt-2">Create a new job listing for curators</p>
+            </div>
+        </div>
+
+        <!-- Job Form -->
+        <div class="max-w-3xl mx-auto px-4 py-8">
+            <form action="/submit-post-new-job" method="POST" enctype="multipart/form-data" class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 space-y-6">
+                <!-- Basic Information -->
+                <div class="space-y-4">
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Job Information</h2>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Job Title</label>
+                        <input type="text"
+                               name="jobTitle"
+                               required
+                               class="w-full px-4 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                               placeholder="e.g., Image Recognition Model Labeling">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Job Category</label>
+                        <select name="jobCategory"
+                                id="jobCategory"
+                                required
+                                class="w-full px-4 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            <option value="Image Labeling">Image Labeling</option>
+                            <option value="Audio Labeling">Audio Labeling</option>
+                            <option value="Video Labeling">Video Labeling</option>
+                            <option value="Text Annotation">Text Annotation</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Job Description</label>
+                        <textarea name="jobDescription"
+                                  required
+                                  rows="4"
+                                  class="w-full px-4 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                  placeholder="Describe the job requirements and expectations..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Data Upload Section -->
+                <div class="space-y-4">
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Data Upload</h2>
+
+                    <div id="dataUploadSection" class="space-y-4">
+                        <div class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-6 text-center"
+                             ondrop="handleDrop(event)"
+                             ondragover="handleDragOver(event)"
+                             ondragleave="handleDragLeave(event)">
+                            <label for="dataUpload" id="uploadLabel" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Upload Files
+                            </label>
+
+                            <div class="space-y-2">
+                                <input type="file"
+                                       id="dataUpload"
+                                       name="dataFiles"
+                                       multiple
+                                       required
+                                       class="hidden"
+                                       accept="image/*">
+
+                                <button type="button"
+                                        onclick="document.getElementById('dataUpload').click()"
+                                        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200">
+                                    Choose Files
+                                </button>
+
+                                <p id="uploadHelp" class="text-sm text-gray-500 dark:text-gray-400">
+                                    Upload multiple files or a ZIP file
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Preview Section -->
+                        <div id="filePreview" class="hidden">
+                            <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Selected Files:</h3>
+                            <div id="fileList" class="space-y-2">
+                                <!-- File previews will be inserted here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Estimated Cost -->
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Estimated Cost</h2>
+                    <p id="estimatedCost" class="text-lg text-gray-700 dark:text-gray-300">$0.00</p>
+                </div>
+
+                <!-- Deadline -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Deadline</label>
+                    <input type="date"
+                           name="deadline"
+                           required
+                           class="w-full px-4 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                </div>
+
+                <!-- Submit Button -->
+                <div class="flex justify-end space-x-4">
+                    <button type="button"
+                            onclick="window.location.href='/company-dashboard'"
+                            class="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition duration-200">
+                        Cancel
+                    </button>
+                    <button type="submit"
+                            class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200">
+                        Post Job
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-blue-600 dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto py-8 px-4">
+            <div class="text-center">
+                <p class="text-base text-white">&copy; 2024 Bridge Solutions. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let selectedFiles = [];
+        const costPerFile = 5.00; // Example cost per file
+
+        document.getElementById('dataUpload').addEventListener('change', function(e) {
+            const fileList = document.getElementById('fileList');
+            const previewSection = document.getElementById('filePreview');
+
+            // Add new files to the selectedFiles array
+            selectedFiles = [...selectedFiles, ...Array.from(this.files)];
+
+            updateFilePreview();
+            updateEstimatedCost();
+
+            if (selectedFiles.length > 0) {
+                previewSection.classList.remove('hidden');
+            } else {
+                previewSection.classList.add('hidden');
+            }
+        });
+
+        function updateFilePreview() {
+            const fileList = document.getElementById('fileList');
+            fileList.innerHTML = ''; // Clear existing previews
+
+            selectedFiles.forEach((file, index) => {
+                const fileDiv = document.createElement('div');
+                fileDiv.className = 'flex items-center justify-between p-2 bg-gray-50 dark:bg-gray-700 rounded';
+
+                const fileInfo = document.createElement('div');
+                fileInfo.className = 'flex-1';
+
+                const fileName = document.createElement('span');
+                fileName.className = 'text-sm text-gray-700 dark:text-gray-300';
+                fileName.textContent = file.name;
+
+                const fileSize = document.createElement('span');
+                fileSize.className = 'text-sm text-gray-500 dark:text-gray-400 ml-4';
+                fileSize.textContent = (file.size / (1024 * 1024)).toFixed(2) + ' MB';
+
+                const removeButton = document.createElement('button');
+                removeButton.className = 'ml-4 px-2 py-1 bg-red-600 text-white rounded-lg hover:bg-red-700 transition duration-200';
+                removeButton.textContent = 'Remove';
+                removeButton.onclick = () => removeFile(index);
+
+                fileInfo.appendChild(fileName);
+                fileInfo.appendChild(fileSize);
+                fileDiv.appendChild(fileInfo);
+                fileDiv.appendChild(removeButton);
+                fileList.appendChild(fileDiv);
+            });
+        }
+
+        function updateEstimatedCost() {
+            const estimatedCost = selectedFiles.length * costPerFile;
+            document.getElementById('estimatedCost').textContent = `$${estimatedCost.toFixed(2)}`;
+        }
+
+        function removeFile(index) {
+            selectedFiles.splice(index, 1);
+            updateFilePreview();
+            updateEstimatedCost();
+
+            if (selectedFiles.length === 0) {
+                document.getElementById('filePreview').classList.add('hidden');
+            }
+
+            // Update the file input with the remaining files
+            document.getElementById('dataUpload').files = new FileListItems(selectedFiles);
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const dt = e.dataTransfer;
+            const files = dt.files;
+
+            // Add new files to the selectedFiles array
+            selectedFiles = [...selectedFiles, ...Array.from(files)];
+
+            document.getElementById('dataUpload').files = new FileListItems(selectedFiles);
+            // Trigger the change event to update the preview
+            document.getElementById('dataUpload').dispatchEvent(new Event('change'));
+
+            e.target.classList.remove('bg-gray-100', 'dark:bg-gray-600');
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.target.classList.add('bg-gray-100', 'dark:bg-gray-600');
+        }
+
+        function handleDragLeave(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.target.classList.remove('bg-gray-100', 'dark:bg-gray-600');
+        }
+
+        function FileListItems(files) {
+            const b = new ClipboardEvent("").clipboardData || new DataTransfer();
+            for (let i = 0, len = files.length; i < len; i++) b.items.add(files[i]);
+            return b.files;
+        }
+
+        function validateForm(e) {
+            const title = document.querySelector('[name="jobTitle"]').value;
+            const description = document.querySelector('[name="jobDescription"]').value;
+            const files = document.getElementById('dataUpload').files;
+            const deadline = document.querySelector('[name="deadline"]').value;
+            const paymentAmount = document.querySelector('[name="paymentAmount"]').value;
+
+            if (!title || !description || files.length === 0 || !deadline || !paymentAmount) {
+                alert('Please fill in all required fields');
+                return false;
+            }
+
+            const deadlineDate = new Date(deadline);
+            if (deadlineDate < new Date()) {
+                alert('Deadline cannot be in the past');
+                return false;
+            }
+
+            if (paymentAmount <= 0) {
+                alert('Payment amount must be greater than 0');
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</body>
+</html>
