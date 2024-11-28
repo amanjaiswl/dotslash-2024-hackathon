@@ -1,4 +1,5 @@
-# Bridge Solutions (Winner of Dotslash Hackathon 2024 under the track Grand Challenges)
+# Bridge Solutions (Winner of Dotslash Hackathon 2024 under the track Grand Challenges) 
+devpost result: https://devpost.com/software/bridge-ncgz7o
 
 Bridge Solutions is a web platform that connects companies with professional curators for various tasks and projects. The platform facilitates efficient task management, submission reviews, and collaboration between companies and curators.
 
